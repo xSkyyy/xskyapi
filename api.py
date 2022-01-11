@@ -3,10 +3,7 @@ import tornado.ioloop
 import tornado.web
 import config
 import random
-
-from random import randint
 from tornado.web import Application, RequestHandler
-from tornado.ioloop import IOLoop
 
 port = config.port
 name = config.name
