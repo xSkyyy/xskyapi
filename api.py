@@ -20,7 +20,7 @@ trollpath = 'static/troll'
 furrypath = 'static/furry'
 
 ## Shite if statement
-if config.localhost == True:
+if config.localhost is True:
 	urlglobal = f'localhost:{port}'
 else:
 	urlglobal = f'http://api.xsky.dev'
