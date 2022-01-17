@@ -3,7 +3,10 @@ import tornado.ioloop
 import tornado.web
 import config
 import random
+
+from random import randint
 from tornado.web import Application, RequestHandler
+from tornado.ioloop import IOLoop
 
 port = config.port
 name = config.name
@@ -15,9 +18,15 @@ catboypath = 'static/catboy'
 hentaipath = "static/hentai"
 trollpath = 'static/troll'
 furrypath = 'static/furry'
+nekopath = 'static/neko'
+feetpath = 'static/feet'
+trappath = 'static/trap'
+gifpath = 'static/gif'
+futapath = 'static/futa'
+
 
 ## Shite if statement
-if config.localhost is True:
+if config.localhost == True:
 	urlglobal = f'localhost:{port}'
 else:
 	urlglobal = f'http://api.xsky.dev'
@@ -31,7 +40,7 @@ class MainHandler(RequestHandler):
 class HentaiHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(hentaipath)))
-		url = f"{urlglobal}/hentai/" + image_id + ".png"
+		url = f"{urlglobal}/hentai/" + image_id
 		
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
@@ -40,7 +49,7 @@ class HentaiHandler(RequestHandler):
 class TrollHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(trollpath)))
-		url = f"{urlglobal}/troll/" + image_id + ".png"
+		url = f"{urlglobal}/troll/" + image_id
 		
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
@@ -49,7 +58,7 @@ class TrollHandler(RequestHandler):
 class CatboyHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(catboypath)))
-		url = f"{urlglobal}/static/catboy/" + image_id + ".png"
+		url = f"{urlglobal}/static/catboy/" + image_id
 		
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
@@ -58,7 +67,7 @@ class CatboyHandler(RequestHandler):
 class BdsmHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(bdsmpath)))
-		url = f"{urlglobal}/static/bdsm/" + image_id + ".png"
+		url = f"{urlglobal}/static/bdsm/" + image_id
 		
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
@@ -67,7 +76,7 @@ class BdsmHandler(RequestHandler):
 class FurryHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(furrypath)))
-		url = f"{urlglobal}/static/furry/" + image_id + ".png"
+		url = f"{urlglobal}/static/furry/" + image_id
 		
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
@@ -82,7 +91,7 @@ class FFHandler(RequestHandler):
 		self.write({"url":url})
 		self.finish()
 
-class NekoHandler(RequestHandler):
+class NekoIRLHandler(RequestHandler):
 	def get(self):
 		image_id = str(random.choice(os.listdir(nekoirlpath)))
 		url = f"{urlglobal}/static/nekoirl/" + image_id
@@ -90,6 +99,52 @@ class NekoHandler(RequestHandler):
 		self.set_header("Content-Type", "application/json")
 		self.write({"url":url})
 		self.finish()
+
+class NekoHandler(RequestHandler):
+	def get(self):
+		image_id = str(random.choice(os.listdir(nekopath)))
+		url = f"{urlglobal}/static/neko/" + image_id
+		
+		self.set_header("Content-Type", "application/json")
+		self.write({"url":url})
+		self.finish()
+
+class FeetHandler(RequestHandler):
+	def get(self):
+		image_id = str(random.choice(os.listdir(feetpath)))
+		url = f"{urlglobal}/static/feet/" + image_id
+		
+		self.set_header("Content-Type", "application/json")
+		self.write({"url":url})
+		self.finish()
+
+class TrapHandler(RequestHandler):
+	def get(self):
+		image_id = str(random.choice(os.listdir(trappath)))
+		url = f"{urlglobal}/static/trap/" + image_id
+		
+		self.set_header("Content-Type", "application/json")
+		self.write({"url":url})
+		self.finish()
+
+class FutaHandler(RequestHandler):
+	def get(self):
+		image_id = str(random.choice(os.listdir(futapath)))
+		url = f"{urlglobal}/static/futa/" + image_id
+		
+		self.set_header("Content-Type", "application/json")
+		self.write({"url":url})
+		self.finish()
+
+class GifHandler(RequestHandler):
+	def get(self):
+		image_id = str(random.choice(os.listdir(gifpath)))
+		url = f"{urlglobal}/static/gif/" + image_id
+		
+		self.set_header("Content-Type", "application/json")
+		self.write({"url":url})
+		self.finish()
+
 
 def make_app():
 	settings = dict(
@@ -103,7 +158,12 @@ def make_app():
 		(r"/catboy", CatboyHandler),
 		(r"/furry", FurryHandler),
 		(r"/ff", FFHandler),
-		(r"/nekoirl", NekoHandler)
+		(r"/nekoirl", NekoIRLHandler),
+		(r"/neko", NekoHandler),
+		(r"/feet", FeetHandler),
+		(r"/trap", TrapHandler),
+		(r"/gif", GifHandler),
+		(r"/futa", FutaHandler)
 	], **settings)
 	return app
 
